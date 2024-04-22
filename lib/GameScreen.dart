@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import 'GameState.dart';
 import 'WinnerScreen.dart';
 
 class GameScreen extends StatefulWidget {
@@ -24,11 +26,19 @@ class _GameScreenState extends State<GameScreen> {
   @override
   void initState() {
     super.initState();
+    resetGame();
+  }
+
+  void resetGame() {
     _numberToGuess = widget.min + Random().nextInt(widget.max - widget.min);
+    _upperBound = null;
+    _lowerBound = null;
   }
 
   @override
   Widget build(BuildContext context) {
+    var gameState = Provider.of<GameState>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adivina el número'),
@@ -80,6 +90,7 @@ class _GameScreenState extends State<GameScreen> {
                                 MaterialPageRoute(
                                     builder: (context) => WinnerScreen(
                                           guessedNumber: _numberToGuess,
+                                          resetGame: resetGame,
                                         )),
                               );
                             } else if (num > _numberToGuess &&

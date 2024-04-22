@@ -1,38 +1,45 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'GameScreen.dart';
+import 'GameState.dart';
 
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;
+  final VoidCallback resetGame;
 
-  const WinnerScreen({super.key, required this.guessedNumber});
+  const WinnerScreen(
+      {Key? key, required this.guessedNumber, required this.resetGame})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var gameState = Provider.of<GameState>(context, listen: false);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Has acertado!'),
+        title: Text('Has acertado!'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            const Icon(Icons.emoji_events_outlined, size: 100.0),
+            Icon(Icons.emoji_events_outlined, size: 100.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Icon(Icons.star_border, size: 50.0),
+                Icon(Icons.star_border, size: 50.0),
                 Transform.translate(
-                  offset: const Offset(0, 20),
-                  child: const Icon(Icons.star_border, size: 50.0),
+                  offset: Offset(0, 20),
+                  child: Icon(Icons.star_border, size: 50.0),
                 ),
-                const Icon(Icons.star_border, size: 50.0),
+                Icon(Icons.star_border, size: 50.0),
               ],
             ),
             const SizedBox(height: 50.0),
             Text('Has adivinado el número $guessedNumber!',
-                style: const TextStyle(fontSize: 24.0)),
+                style: TextStyle(fontSize: 24.0)),
             const SizedBox(height: 50.0),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -40,13 +47,10 @@ class WinnerScreen extends StatelessWidget {
                 backgroundColor: Colors.red,
               ),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const GameScreen(min: 0, max: 100)),
-                );
+                gameState.resetGame();
+                Navigator.pop(context);
               },
-              child: const Text('Volver a jugar'),
+              child: Text('Volver a jugar'),
             ),
           ],
         ),
