@@ -15,6 +15,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _controller = TextEditingController();
   String _number = '';
   int? _upperBound;
   int? _lowerBound;
@@ -46,6 +47,7 @@ class _GameScreenState extends State<GameScreen> {
                     child: SizedBox(
                       width: 200,
                       child: TextFormField(
+                        controller: _controller,
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
                           labelText: 'Introduce un número',
@@ -87,6 +89,7 @@ class _GameScreenState extends State<GameScreen> {
                                 (_lowerBound == null || num > _lowerBound!)) {
                               _lowerBound = num;
                             }
+                            _controller.clear();
                           });
                         }
                       },
