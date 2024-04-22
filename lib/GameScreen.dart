@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
+  const GameScreen({super.key});
+
   @override
   _GameScreenState createState() => _GameScreenState();
 }
@@ -8,15 +10,15 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   final _formKey = GlobalKey<FormState>();
   String _number = '';
-  int _upperBound = 100; // Inicializa con un valor alto
-  int _lowerBound = 0; // Inicializa con un valor bajo
-  int _numberToGuess = 50;
+  int? _upperBound;
+  int? _lowerBound;
+  final int _numberToGuess = 50;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Adivina el número'),
+        title: const Text('Adivina el número'),
       ),
       body: Center(
         child: Form(
@@ -29,8 +31,8 @@ class _GameScreenState extends State<GameScreen> {
                 children: <Widget>[
                   Align(
                     alignment: Alignment.center,
-                    child: Container(
-                      width: 200, // Width of the input field
+                    child: SizedBox(
+                      width: 200,
                       child: TextFormField(
                         textAlign: TextAlign.center,
                         decoration: const InputDecoration(
@@ -51,46 +53,55 @@ class _GameScreenState extends State<GameScreen> {
                   Positioned(
                     right: 20.0,
                     child: FloatingActionButton(
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           setState(() {
                             int num = int.parse(_number);
-                            if (num > _numberToGuess && num < _upperBound) {
+                            if (num > _numberToGuess &&
+                                (_upperBound == null || num < _upperBound!)) {
                               _upperBound = num;
                             } else if (num < _numberToGuess &&
-                                num > _lowerBound) {
+                                (_lowerBound == null || num > _lowerBound!)) {
                               _lowerBound = num;
                             }
                           });
                         }
                       },
-                      child: Icon(Icons.check),
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
+                      child: const Icon(Icons.check),
                     ),
                   ),
                 ],
               ),
-              SizedBox(height: 20.0),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('$_upperBound', style: TextStyle(fontSize: 24.0)),
-                    Icon(Icons.arrow_downward, size: 30.0),
-                  ],
+              const SizedBox(height: 20.0),
+              if (_upperBound != null)
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('$_upperBound',
+                          style: const TextStyle(fontSize: 24.0)),
+                      const Icon(Icons.arrow_downward,
+                          size: 30.0, color: Colors.red),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 20.0),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text('$_lowerBound', style: TextStyle(fontSize: 24.0)),
-                    Icon(Icons.arrow_upward, size: 30.0),
-                  ],
+              const SizedBox(height: 20.0),
+              if (_lowerBound != null)
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('$_lowerBound',
+                          style: const TextStyle(fontSize: 24.0)),
+                      const Icon(Icons.arrow_upward,
+                          size: 30.0, color: Colors.red),
+                    ],
+                  ),
                 ),
-              ),
             ],
           ),
         ),
