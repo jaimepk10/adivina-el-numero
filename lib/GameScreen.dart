@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
+import 'WinnerScreen.dart';
+
 class GameScreen extends StatefulWidget {
   final int min;
   final int max;
@@ -70,7 +72,15 @@ class _GameScreenState extends State<GameScreen> {
                           _formKey.currentState!.save();
                           setState(() {
                             int num = int.parse(_number);
-                            if (num > _numberToGuess &&
+                            if (num == _numberToGuess) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => WinnerScreen(
+                                          guessedNumber: _numberToGuess,
+                                        )),
+                              );
+                            } else if (num > _numberToGuess &&
                                 (_upperBound == null || num < _upperBound!)) {
                               _upperBound = num;
                             } else if (num < _numberToGuess &&
