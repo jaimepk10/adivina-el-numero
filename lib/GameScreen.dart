@@ -1,7 +1,11 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  final int min;
+  final int max;
+
+  const GameScreen({super.key, required this.min, required this.max});
 
   @override
   _GameScreenState createState() => _GameScreenState();
@@ -12,7 +16,13 @@ class _GameScreenState extends State<GameScreen> {
   String _number = '';
   int? _upperBound;
   int? _lowerBound;
-  final int _numberToGuess = 50;
+  late final int _numberToGuess;
+
+  @override
+  void initState() {
+    super.initState();
+    _numberToGuess = widget.min + Random().nextInt(widget.max - widget.min);
+  }
 
   @override
   Widget build(BuildContext context) {

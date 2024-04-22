@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      home: GameScreen(),
+    const MaterialApp(
+      home: GameScreen(min: 0, max: 100),
     ),
   );
 }
