@@ -10,12 +10,15 @@ class GameState extends ChangeNotifier {
   int? _upperBound;
   int? _lowerBound;
   late Timer _timer;
-  int _timeRemaining = 5 * 60;
+  final int _timeLimit;
+  int _timeRemaining;
 
-  GameState({required int min, required int max})
+  GameState({required int min, required int max, required int timeLimit})
       : _min = min,
         _max = max,
-        _numberToGuess = min + Random().nextInt(max - min) {
+        _numberToGuess = min + Random().nextInt(max - min),
+        _timeLimit = timeLimit,
+        _timeRemaining = timeLimit * 60 {
     startTimer();
   }
 
@@ -30,7 +33,7 @@ class GameState extends ChangeNotifier {
     _numberToGuess = _min + Random().nextInt(_max - _min);
     _upperBound = null;
     _lowerBound = null;
-    _timeRemaining = 5 * 60;
+    _timeRemaining = _timeLimit * 60;
     _timer.cancel();
     startTimer();
     notifyListeners();

@@ -6,7 +6,7 @@ import 'GameState.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-    create: (context) => GameState(min: 0, max: 100),
+    create: (context) => GameState(min: 0, max: 100, timeLimit: 1),
     child: const MaterialApp(
       home: GameScreen(),
     ),
