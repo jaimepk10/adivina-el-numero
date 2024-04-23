@@ -85,6 +85,7 @@ class _GameScreenState extends State<GameScreen> {
           return Column(
             children: <Widget>[
               Expanded(
+                flex: 6, // 60% of space
                 child: Center(
                   child: Form(
                     key: _formKey,
@@ -194,7 +195,7 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 4, // 40% of space
                 child: buildKeyboard(),
               ),
             ],
