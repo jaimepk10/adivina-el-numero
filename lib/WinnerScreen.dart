@@ -6,11 +6,8 @@ import 'GameState.dart';
 
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;
-  final VoidCallback resetGame;
 
-  const WinnerScreen(
-      {Key? key, required this.guessedNumber, required this.resetGame})
-      : super(key: key);
+  const WinnerScreen({Key? key, required this.guessedNumber}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

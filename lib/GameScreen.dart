@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,126 +18,120 @@ class _GameScreenState extends State<GameScreen> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
   String _number = '';
-  int? _upperBound;
-  int? _lowerBound;
-  late final int _numberToGuess;
 
   @override
   void initState() {
     super.initState();
-    resetGame();
-  }
-
-  void resetGame() {
-    _numberToGuess = widget.min + Random().nextInt(widget.max - widget.min);
-    _upperBound = null;
-    _lowerBound = null;
   }
 
   @override
   Widget build(BuildContext context) {
-    var gameState = Provider.of<GameState>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Adivina el número'),
       ),
-      body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Stack(
-                alignment: Alignment.center,
+      body: Consumer<GameState>(
+        builder: (context, gameState, child) {
+          return Center(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Align(
+                  Stack(
                     alignment: Alignment.center,
-                    child: SizedBox(
-                      width: 200,
-                      child: TextFormField(
-                        controller: _controller,
-                        textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
-                          labelText: 'Introduce un número',
+                    children: <Widget>[
+                      Align(
+                        alignment: Alignment.center,
+                        child: SizedBox(
+                          width: 200,
+                          child: TextFormField(
+                            controller: _controller,
+                            textAlign: TextAlign.center,
+                            decoration: const InputDecoration(
+                              labelText: 'Introduce un número',
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Por favor introduce un número';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _number = value!;
+                            },
+                          ),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor introduce un número';
-                          }
-                          return null;
-                        },
-                        onSaved: (value) {
-                          _number = value!;
-                        },
+                      ),
+                      Positioned(
+                        right: 20.0,
+                        child: FloatingActionButton(
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              setState(() {
+                                int num = int.parse(_number);
+                                if (num == gameState.numberToGuess) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => WinnerScreen(
+                                              guessedNumber:
+                                                  gameState.numberToGuess,
+                                            )),
+                                  );
+                                } else if (num > gameState.numberToGuess &&
+                                    (gameState.upperBound == null ||
+                                        num < gameState.upperBound!)) {
+                                  gameState.setUpperBound(num);
+                                } else if (num < gameState.numberToGuess &&
+                                    (gameState.lowerBound == null ||
+                                        num > gameState.lowerBound!)) {
+                                  gameState.setLowerBound(num);
+                                }
+                                _controller.clear();
+                              });
+                            }
+                          },
+                          shape: const CircleBorder(),
+                          child: const Icon(Icons.check),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20.0),
+                  if (gameState.upperBound != null)
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('${gameState.upperBound}',
+                              style: const TextStyle(fontSize: 24.0)),
+                          const Icon(Icons.arrow_downward,
+                              size: 30.0, color: Colors.red),
+                        ],
                       ),
                     ),
-                  ),
-                  Positioned(
-                    right: 20.0,
-                    child: FloatingActionButton(
-                      backgroundColor: Colors.red,
-                      foregroundColor: Colors.white,
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          setState(() {
-                            int num = int.parse(_number);
-                            if (num == _numberToGuess) {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => WinnerScreen(
-                                          guessedNumber: _numberToGuess,
-                                          resetGame: resetGame,
-                                        )),
-                              );
-                            } else if (num > _numberToGuess &&
-                                (_upperBound == null || num < _upperBound!)) {
-                              _upperBound = num;
-                            } else if (num < _numberToGuess &&
-                                (_lowerBound == null || num > _lowerBound!)) {
-                              _lowerBound = num;
-                            }
-                            _controller.clear();
-                          });
-                        }
-                      },
-                      shape: const CircleBorder(),
-                      child: const Icon(Icons.check),
+                  const SizedBox(height: 20.0),
+                  if (gameState.lowerBound != null)
+                    Center(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('${gameState.lowerBound}',
+                              style: const TextStyle(fontSize: 24.0)),
+                          const Icon(Icons.arrow_upward,
+                              size: 30.0, color: Colors.red),
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
-              const SizedBox(height: 20.0),
-              if (_upperBound != null)
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('$_upperBound',
-                          style: const TextStyle(fontSize: 24.0)),
-                      const Icon(Icons.arrow_downward,
-                          size: 30.0, color: Colors.red),
-                    ],
-                  ),
-                ),
-              const SizedBox(height: 20.0),
-              if (_lowerBound != null)
-                Center(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('$_lowerBound',
-                          style: const TextStyle(fontSize: 24.0)),
-                      const Icon(Icons.arrow_upward,
-                          size: 30.0, color: Colors.red),
-                    ],
-                  ),
-                ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
