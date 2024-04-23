@@ -2,11 +2,16 @@ import 'package:flutter/foundation.dart';
 import 'dart:math';
 
 class GameState extends ChangeNotifier {
-  int _min = 0;
-  int _max = 100;
+  int _min;
+  int _max;
   int _numberToGuess = 0;
   int? _upperBound;
   int? _lowerBound;
+
+  GameState({required int min, required int max})
+      : _min = min,
+        _max = max,
+        _numberToGuess = min + Random().nextInt(max - min);
 
   int get min => _min;
   int get max => _max;

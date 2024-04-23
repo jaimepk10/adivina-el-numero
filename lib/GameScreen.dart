@@ -5,10 +5,7 @@ import 'GameState.dart';
 import 'WinnerScreen.dart';
 
 class GameScreen extends StatefulWidget {
-  final int min;
-  final int max;
-
-  const GameScreen({super.key, required this.min, required this.max});
+  const GameScreen({super.key});
 
   @override
   _GameScreenState createState() => _GameScreenState();
