@@ -26,6 +26,7 @@ class _GameScreenState extends State<GameScreen> {
       builder: (BuildContext context, BoxConstraints constraints) {
         final buttonWidth = constraints.maxWidth / 3;
         final buttonHeight = constraints.maxHeight / 4;
+        final gameState = Provider.of<GameState>(context, listen: false);
         return GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -46,9 +47,49 @@ class _GameScreenState extends State<GameScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: Text('$index'),
+                  child: index < 9
+                      ? Text('$index')
+                      : index == 9
+                          ? Icon(Icons.backspace)
+                          : index == 10
+                              ? Text('9')
+                              : Icon(Icons.check),
                   onPressed: () {
-                    _controller.text = _controller.text + '$index';
+                    if (index < 9) {
+                      _controller.text = _controller.text + '$index';
+                    } else if (index == 9) {
+                      if (_controller.text.isNotEmpty) {
+                        _controller.text = _controller.text
+                            .substring(0, _controller.text.length - 1);
+                      }
+                    } else if (index == 10) {
+                      _controller.text = _controller.text + '9';
+                    } else if (index == 11) {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        setState(() {
+                          int num = int.parse(_number);
+                          if (num == gameState.numberToGuess) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WinnerScreen(
+                                        guessedNumber: gameState.numberToGuess,
+                                      )),
+                            );
+                          } else if (num > gameState.numberToGuess &&
+                              (gameState.upperBound == null ||
+                                  num < gameState.upperBound!)) {
+                            gameState.setUpperBound(num);
+                          } else if (num < gameState.numberToGuess &&
+                              (gameState.lowerBound == null ||
+                                  num > gameState.lowerBound!)) {
+                            gameState.setLowerBound(num);
+                          }
+                          _controller.clear();
+                        });
+                      }
+                    }
                   },
                 ),
               ),
