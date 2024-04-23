@@ -141,12 +141,22 @@ class _GameScreenState extends State<GameScreen> {
                                         .requestFocus(FocusNode());
                                   },
                                   textAlign: TextAlign.center,
-                                  decoration: const InputDecoration(
+                                  decoration: InputDecoration(
                                     labelText: 'Introduce un número',
+                                    errorStyle: TextStyle(),
+                                    errorMaxLines: 2,
                                   ),
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Por favor introduce un número';
+                                    }
+                                    final gameState = Provider.of<GameState>(
+                                        context,
+                                        listen: false);
+                                    int num = int.parse(value);
+                                    if (gameState.upperBound == null &&
+                                        num > gameState.max) {
+                                      return 'El número introducido está fuera del rango permitido';
                                     }
                                     return null;
                                   },
