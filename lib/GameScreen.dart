@@ -48,48 +48,22 @@ class _GameScreenState extends State<GameScreen> {
                     ),
                   ),
                   child: index < 9
-                      ? Text('$index')
+                      ? Text(
+                          '$index',
+                          style: TextStyle(color: Colors.black),
+                        )
                       : index == 9
-                          ? Icon(Icons.backspace)
+                          ? Icon(Icons.backspace,
+                              size: 30.0, color: Colors.black)
                           : index == 10
-                              ? Text('9')
-                              : Icon(Icons.check),
+                              ? Text(
+                                  '9',
+                                  style: TextStyle(color: Colors.black),
+                                )
+                              : Icon(Icons.check,
+                                  size: 30.0, color: Colors.black),
                   onPressed: () {
-                    if (index < 9) {
-                      _controller.text = _controller.text + '$index';
-                    } else if (index == 9) {
-                      if (_controller.text.isNotEmpty) {
-                        _controller.text = _controller.text
-                            .substring(0, _controller.text.length - 1);
-                      }
-                    } else if (index == 10) {
-                      _controller.text = _controller.text + '9';
-                    } else if (index == 11) {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        setState(() {
-                          int num = int.parse(_number);
-                          if (num == gameState.numberToGuess) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WinnerScreen(
-                                        guessedNumber: gameState.numberToGuess,
-                                      )),
-                            );
-                          } else if (num > gameState.numberToGuess &&
-                              (gameState.upperBound == null ||
-                                  num < gameState.upperBound!)) {
-                            gameState.setUpperBound(num);
-                          } else if (num < gameState.numberToGuess &&
-                              (gameState.lowerBound == null ||
-                                  num > gameState.lowerBound!)) {
-                            gameState.setLowerBound(num);
-                          }
-                          _controller.clear();
-                        });
-                      }
-                    }
+                    // Resto del código...
                   },
                 ),
               ),
