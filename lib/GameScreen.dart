@@ -49,7 +49,7 @@ class _GameScreenState extends State<GameScreen> {
                   ),
                   child: index < 9
                       ? Text(
-                          '$index',
+                          '${index + 1}',
                           style: TextStyle(color: Colors.black),
                         )
                       : index == 9
@@ -57,13 +57,47 @@ class _GameScreenState extends State<GameScreen> {
                               size: 30.0, color: Colors.black)
                           : index == 10
                               ? Text(
-                                  '9',
+                                  '0',
                                   style: TextStyle(color: Colors.black),
                                 )
                               : Icon(Icons.check,
                                   size: 30.0, color: Colors.black),
                   onPressed: () {
-                    // Resto del código...
+                    if (index < 9) {
+                      _controller.text = _controller.text + '${index + 1}';
+                    } else if (index == 9) {
+                      if (_controller.text.isNotEmpty) {
+                        _controller.text = _controller.text
+                            .substring(0, _controller.text.length - 1);
+                      }
+                    } else if (index == 10) {
+                      _controller.text = _controller.text + '0';
+                    } else if (index == 11) {
+                      if (_formKey.currentState!.validate()) {
+                        _formKey.currentState!.save();
+                        setState(() {
+                          int num = int.parse(_number);
+                          if (num == gameState.numberToGuess) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => WinnerScreen(
+                                        guessedNumber: gameState.numberToGuess,
+                                      )),
+                            );
+                          } else if (num > gameState.numberToGuess &&
+                              (gameState.upperBound == null ||
+                                  num < gameState.upperBound!)) {
+                            gameState.setUpperBound(num);
+                          } else if (num < gameState.numberToGuess &&
+                              (gameState.lowerBound == null ||
+                                  num > gameState.lowerBound!)) {
+                            gameState.setLowerBound(num);
+                          }
+                          _controller.clear();
+                        });
+                      }
+                    }
                   },
                 ),
               ),
@@ -198,6 +232,7 @@ class _GameScreenState extends State<GameScreen> {
                 flex: 4, // 40% of space
                 child: buildKeyboard(),
               ),
+              SizedBox(height: 40.0),
             ],
           );
         },
