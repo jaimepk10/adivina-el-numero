@@ -126,6 +126,10 @@ class _GameScreenState extends State<GameScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        Text(
+                          '${gameState.timeRemaining ~/ 60}:${(gameState.timeRemaining % 60).toString().padLeft(2, '0')}',
+                          style: TextStyle(fontSize: 24),
+                        ),
                         Stack(
                           alignment: Alignment.center,
                           children: <Widget>[
