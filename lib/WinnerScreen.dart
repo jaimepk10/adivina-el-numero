@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'GameScreen.dart';
 import 'GameState.dart';
 
 class WinnerScreen extends StatelessWidget {
