@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'GameState.dart';
 import 'WinnerScreen.dart';
 
 class NumberInputForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController controller;
-  final GameState gameState;
 
   NumberInputForm({
     required this.formKey,
     required this.controller,
-    required this.gameState,
   });
 
   @override
@@ -20,6 +19,7 @@ class NumberInputForm extends StatefulWidget {
 class _NumberInputFormState extends State<NumberInputForm> {
   @override
   Widget build(BuildContext context) {
+    final gameState = Provider.of<GameState>(context);
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
@@ -44,8 +44,7 @@ class _NumberInputFormState extends State<NumberInputForm> {
                   return 'Por favor introduce un número';
                 }
                 int num = int.parse(value);
-                if (widget.gameState.upperBound == null &&
-                    num > widget.gameState.max) {
+                if (gameState.upperBound == null && num > gameState.max) {
                   return 'El número introducido está fuera del rango permitido';
                 }
                 return null;
@@ -64,22 +63,22 @@ class _NumberInputFormState extends State<NumberInputForm> {
                 String number = widget.controller.text;
                 setState(() {
                   int num = int.parse(number);
-                  if (num == widget.gameState.numberToGuess) {
+                  if (num == gameState.numberToGuess) {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => WinnerScreen(
-                                guessedNumber: widget.gameState.numberToGuess,
+                                guessedNumber: gameState.numberToGuess,
                               )),
                     );
-                  } else if (num > widget.gameState.numberToGuess &&
-                      (widget.gameState.upperBound == null ||
-                          num < widget.gameState.upperBound!)) {
-                    widget.gameState.setUpperBound(num);
-                  } else if (num < widget.gameState.numberToGuess &&
-                      (widget.gameState.lowerBound == null ||
-                          num > widget.gameState.lowerBound!)) {
-                    widget.gameState.setLowerBound(num);
+                  } else if (num > gameState.numberToGuess &&
+                      (gameState.upperBound == null ||
+                          num < gameState.upperBound!)) {
+                    gameState.setUpperBound(num);
+                  } else if (num < gameState.numberToGuess &&
+                      (gameState.lowerBound == null ||
+                          num > gameState.lowerBound!)) {
+                    gameState.setLowerBound(num);
                   }
                   widget.controller.clear();
                 });

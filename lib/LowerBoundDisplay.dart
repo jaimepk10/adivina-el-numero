@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'GameState.dart';
 
 class LowerBoundDisplay extends StatelessWidget {
-  final GameState gameState;
-
-  LowerBoundDisplay({required this.gameState});
-
   @override
   Widget build(BuildContext context) {
+    final gameState = Provider.of<GameState>(context);
     return gameState.lowerBound != null
         ? Center(
             child: Row(

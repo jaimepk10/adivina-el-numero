@@ -139,16 +139,15 @@ class _GameScreenState extends State<GameScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        TimerDisplay(gameState: gameState),
+                        TimerDisplay(),
                         NumberInputForm(
                           formKey: _formKey,
                           controller: _controller,
-                          gameState: gameState,
                         ),
                         const SizedBox(height: 20.0),
-                        UpperBoundDisplay(gameState: gameState),
+                        UpperBoundDisplay(),
                         const SizedBox(height: 20.0),
-                        LowerBoundDisplay(gameState: gameState),
+                        LowerBoundDisplay(),
                       ],
                     ),
                   ),

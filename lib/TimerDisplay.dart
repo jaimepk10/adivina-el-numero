@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'GameState.dart';
 
 class TimerDisplay extends StatelessWidget {
-  final GameState gameState;
-
-  TimerDisplay({required this.gameState});
-
   @override
   Widget build(BuildContext context) {
+    final gameState = Provider.of<GameState>(context);
     return Stack(alignment: Alignment.center, children: <Widget>[
       Align(
         alignment: Alignment.center,
