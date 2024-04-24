@@ -3,6 +3,10 @@ import 'package:provider/provider.dart';
 
 import 'GameState.dart';
 import 'LoserScreen.dart';
+import 'LowerBoundDisplay.dart';
+import 'NumberInputForm.dart';
+import 'TimerDisplay.dart';
+import 'UpperBoundDisplay.dart';
 import 'WinnerScreen.dart';
 
 class GameScreen extends StatefulWidget {
@@ -22,12 +26,48 @@ class _GameScreenState extends State<GameScreen> {
     super.initState();
   }
 
-  Widget buildKeyboard() {
+  void handleButtonPress(int index, GameState gameState) {
+    if (index < 9) {
+      _controller.text = _controller.text + '${index + 1}';
+    } else if (index == 9) {
+      if (_controller.text.isNotEmpty) {
+        _controller.text =
+            _controller.text.substring(0, _controller.text.length - 1);
+      }
+    } else if (index == 10) {
+      _controller.text = _controller.text + '0';
+    } else if (index == 11) {
+      if (_formKey.currentState!.validate()) {
+        _formKey.currentState!.save();
+        _number = _controller.text;
+        setState(() {
+          int num = int.parse(_number);
+          if (num == gameState.numberToGuess) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => WinnerScreen(
+                        guessedNumber: gameState.numberToGuess,
+                      )),
+            );
+          } else if (num > gameState.numberToGuess &&
+              (gameState.upperBound == null || num < gameState.upperBound!)) {
+            gameState.setUpperBound(num);
+          } else if (num < gameState.numberToGuess &&
+              (gameState.lowerBound == null || num > gameState.lowerBound!)) {
+            gameState.setLowerBound(num);
+          }
+          _controller.clear();
+        });
+      }
+    }
+  }
+
+  Widget buildKeyboard(GameState gameState) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final buttonWidth = constraints.maxWidth / 3;
         final buttonHeight = constraints.maxHeight / 4;
-        final gameState = Provider.of<GameState>(context, listen: false);
         return GridView.builder(
           physics: NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -63,43 +103,7 @@ class _GameScreenState extends State<GameScreen> {
                                 )
                               : Icon(Icons.check,
                                   size: 30.0, color: Colors.black),
-                  onPressed: () {
-                    if (index < 9) {
-                      _controller.text = _controller.text + '${index + 1}';
-                    } else if (index == 9) {
-                      if (_controller.text.isNotEmpty) {
-                        _controller.text = _controller.text
-                            .substring(0, _controller.text.length - 1);
-                      }
-                    } else if (index == 10) {
-                      _controller.text = _controller.text + '0';
-                    } else if (index == 11) {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        setState(() {
-                          int num = int.parse(_number);
-                          if (num == gameState.numberToGuess) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => WinnerScreen(
-                                        guessedNumber: gameState.numberToGuess,
-                                      )),
-                            );
-                          } else if (num > gameState.numberToGuess &&
-                              (gameState.upperBound == null ||
-                                  num < gameState.upperBound!)) {
-                            gameState.setUpperBound(num);
-                          } else if (num < gameState.numberToGuess &&
-                              (gameState.lowerBound == null ||
-                                  num > gameState.lowerBound!)) {
-                            gameState.setLowerBound(num);
-                          }
-                          _controller.clear();
-                        });
-                      }
-                    }
-                  },
+                  onPressed: () => handleButtonPress(index, gameState),
                 ),
               ),
             );
@@ -135,125 +139,16 @@ class _GameScreenState extends State<GameScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        Stack(alignment: Alignment.center, children: <Widget>[
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              '${gameState.timeRemaining ~/ 60}:${(gameState.timeRemaining % 60).toString().padLeft(2, '0')}',
-                              style: TextStyle(fontSize: 24),
-                            ),
-                          ),
-                          Positioned(
-                              right: 150.0,
-                              child: const Icon(Icons.access_time))
-                        ]),
-                        Stack(
-                          alignment: Alignment.center,
-                          children: <Widget>[
-                            Align(
-                              alignment: Alignment.center,
-                              child: SizedBox(
-                                width: 200,
-                                child: TextFormField(
-                                  controller: _controller,
-                                  readOnly: true,
-                                  onTap: () {
-                                    FocusScope.of(context)
-                                        .requestFocus(FocusNode());
-                                  },
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                    labelText: 'Introduce un número',
-                                    errorStyle: TextStyle(),
-                                    errorMaxLines: 2,
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Por favor introduce un número';
-                                    }
-                                    final gameState = Provider.of<GameState>(
-                                        context,
-                                        listen: false);
-                                    int num = int.parse(value);
-                                    if (gameState.upperBound == null &&
-                                        num > gameState.max) {
-                                      return 'El número introducido está fuera del rango permitido';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _number = value!;
-                                  },
-                                ),
-                              ),
-                            ),
-                            Positioned(
-                              right: 20.0,
-                              child: FloatingActionButton(
-                                backgroundColor: Colors.red,
-                                foregroundColor: Colors.white,
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    _formKey.currentState!.save();
-                                    setState(() {
-                                      int num = int.parse(_number);
-                                      if (num == gameState.numberToGuess) {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  WinnerScreen(
-                                                    guessedNumber:
-                                                        gameState.numberToGuess,
-                                                  )),
-                                        );
-                                      } else if (num >
-                                              gameState.numberToGuess &&
-                                          (gameState.upperBound == null ||
-                                              num < gameState.upperBound!)) {
-                                        gameState.setUpperBound(num);
-                                      } else if (num <
-                                              gameState.numberToGuess &&
-                                          (gameState.lowerBound == null ||
-                                              num > gameState.lowerBound!)) {
-                                        gameState.setLowerBound(num);
-                                      }
-                                      _controller.clear();
-                                    });
-                                  }
-                                },
-                                shape: const CircleBorder(),
-                                child: const Icon(Icons.check),
-                              ),
-                            ),
-                          ],
+                        TimerDisplay(gameState: gameState),
+                        NumberInputForm(
+                          formKey: _formKey,
+                          controller: _controller,
+                          gameState: gameState,
                         ),
                         const SizedBox(height: 20.0),
-                        if (gameState.upperBound != null)
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('${gameState.upperBound}',
-                                    style: const TextStyle(fontSize: 24.0)),
-                                const Icon(Icons.arrow_downward,
-                                    size: 30.0, color: Colors.red),
-                              ],
-                            ),
-                          ),
+                        UpperBoundDisplay(gameState: gameState),
                         const SizedBox(height: 20.0),
-                        if (gameState.lowerBound != null)
-                          Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text('${gameState.lowerBound}',
-                                    style: const TextStyle(fontSize: 24.0)),
-                                const Icon(Icons.arrow_upward,
-                                    size: 30.0, color: Colors.red),
-                              ],
-                            ),
-                          ),
+                        LowerBoundDisplay(gameState: gameState),
                       ],
                     ),
                   ),
@@ -261,7 +156,7 @@ class _GameScreenState extends State<GameScreen> {
               ),
               Expanded(
                 flex: 4, // 40% of space
-                child: buildKeyboard(),
+                child: buildKeyboard(gameState),
               ),
               SizedBox(height: 40.0),
             ],
