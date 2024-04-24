@@ -16,6 +16,7 @@ class WinnerScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Has acertado!'),
+        automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

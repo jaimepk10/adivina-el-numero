@@ -10,6 +10,7 @@ class LoserScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Perdiste'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
