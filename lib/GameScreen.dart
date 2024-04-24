@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'GameState.dart';
+import 'LoserScreen.dart';
 import 'WinnerScreen.dart';
 
 class GameScreen extends StatefulWidget {
@@ -116,6 +117,14 @@ class _GameScreenState extends State<GameScreen> {
       ),
       body: Consumer<GameState>(
         builder: (context, gameState, child) {
+          if (gameState.timeRemaining == 0) {
+            WidgetsBinding.instance!.addPostFrameCallback((_) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LoserScreen()),
+              );
+            });
+          }
           return Column(
             children: <Widget>[
               Expanded(
