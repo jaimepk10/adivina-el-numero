@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'GameState.dart';
+import 'difficulty_screen.dart';
 
 class LoserScreen extends StatelessWidget {
   @override
@@ -44,6 +45,20 @@ class LoserScreen extends StatelessWidget {
                   },
                   child: Text('Volver a jugar'),
                 ),
+                ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.red,
+                    ),
+                    onPressed: () {
+                      gameState.resetGame();
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => DifficultyScreen()),
+                      );
+                    },
+                    child: Text('Cambiar de dificultad')),
               ],
             ),
           ),

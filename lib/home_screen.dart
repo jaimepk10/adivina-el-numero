@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           children: <Widget>[
             Spacer(flex: 2),
             Text(
-              'Adivina el numero!',
+              'No es suerte, Adivina!',
               style: Theme.of(context).textTheme.headline4,
             ),
             const SizedBox(height: 50),

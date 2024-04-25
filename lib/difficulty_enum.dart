@@ -1,6 +1,6 @@
 enum Dificultad {
-  facil("Fácil", 5, 10, 0, 10),
-  medio("Medio", 5, 12, 0, 100),
+  facil("Fácil", 5, 1, 0, 10),
+  medio("Medio", 5, 2, 0, 100),
   dificil("Difícil", 5, 15, 0, 1000);
 
   const Dificultad(this.nombre, this.intentos, this.tiempo, this.min, this.max);
