@@ -1,15 +1,20 @@
 import 'package:adivina_el_numero/difficulty_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'GameState.dart';
 
 class HomeScreen extends StatelessWidget {
+  final TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        // Wrap the Column widget with a Center widget
+        body: Consumer<GameState>(builder: (context, gameState, child) {
+      return Center(
         child: Column(
           children: <Widget>[
-            Spacer(flex: 2), // Pushes the other widgets down
+            Spacer(flex: 2),
             Text(
               'Adivina el numero!',
               style: Theme.of(context).textTheme.headline4,
@@ -17,7 +22,8 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 50),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.75,
-              child: const TextField(
+              child: TextField(
+                controller: _controller,
                 decoration: InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -36,6 +42,7 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: Colors.red,
                 ),
                 onPressed: () {
+                  gameState.setPlayerName(_controller.text);
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => DifficultyScreen()),
@@ -51,10 +58,10 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(flex: 3), // Takes up remaining space
+            Spacer(flex: 3),
           ],
         ),
-      ),
-    );
+      );
+    }));
   }
 }

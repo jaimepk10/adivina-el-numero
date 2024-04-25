@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'dart:math';
+import 'package:adivina_el_numero/difficulty_enum.dart';
 
 class GameState extends ChangeNotifier {
   int _min;
@@ -10,15 +10,22 @@ class GameState extends ChangeNotifier {
   int? _upperBound;
   int? _lowerBound;
   late Timer _timer;
-  final int _timeLimit;
+  int _timeLimit;
   int _timeRemaining;
+  int _tries;
+  String _playerName = '';
 
-  GameState({required int min, required int max, required int timeLimit})
+  GameState(
+      {required int min,
+      required int max,
+      required int timeLimit,
+      required int tries})
       : _min = min,
         _max = max,
         _numberToGuess = min + Random().nextInt(max - min),
         _timeLimit = timeLimit,
-        _timeRemaining = timeLimit * 60 {
+        _timeRemaining = timeLimit * 60,
+        _tries = tries {
     startTimer();
   }
 
@@ -64,5 +71,22 @@ class GameState extends ChangeNotifier {
   void dispose() {
     _timer.cancel();
     super.dispose();
+  }
+
+  void setDifficulty(Dificultad difficulty) {
+    resetGame();
+    _min = difficulty.min;
+    _max = difficulty.max;
+    _numberToGuess = min + Random().nextInt(max - min);
+    _timeLimit = difficulty.tiempo;
+    _timeRemaining = _timeLimit * 60;
+    _tries = difficulty.intentos;
+    notifyListeners();
+  }
+
+  void setPlayerName(String name) {
+    _playerName = name;
+    print(name);
+    notifyListeners();
   }
 }
