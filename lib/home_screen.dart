@@ -2,7 +2,7 @@ import 'package:adivina_el_numero/difficulty_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'GameState.dart';
+import 'game_state.dart';
 
 class HomeScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();

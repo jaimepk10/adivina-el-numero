@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'GameState.dart';
+import 'game_state.dart';
 
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;

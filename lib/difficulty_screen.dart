@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:adivina_el_numero/difficulty_enum.dart';
-import 'package:adivina_el_numero/GameScreen.dart';
+import 'package:adivina_el_numero/game_screen.dart';
 import 'package:provider/provider.dart';
-import 'GameState.dart';
+import 'game_state.dart';
 
 class DifficultyScreen extends StatelessWidget {
   const DifficultyScreen({super.key});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'GameState.dart';
+import 'game_state.dart';
 import 'keyboard.dart';
-import 'LoserScreen.dart';
-import 'LowerBoundDisplay.dart';
-import 'NumberInputForm.dart';
-import 'TimerDisplay.dart';
-import 'UpperBoundDisplay.dart';
+import 'loser_screen.dart';
+import 'lower_bound_display.dart';
+import 'number_input_form.dart';
+import 'timer_display.dart';
+import 'upper_bound_display.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
