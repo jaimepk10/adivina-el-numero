@@ -30,7 +30,9 @@ class DifficultyScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: Dificultad.values.map((dificultad) {
                       return ListTile(
-                        title: Center(child: Text(dificultad.nombre)),
+                        title: Center(
+                            child: Text(
+                                '${dificultad.nombre}: Rango de ${dificultad.min} a ${dificultad.max}, ${dificultad.intentos} intentos, ${dificultad.tiempo} minutos')),
                         onTap: () {
                           gameState.setDifficulty(dificultad);
                           Navigator.push(
