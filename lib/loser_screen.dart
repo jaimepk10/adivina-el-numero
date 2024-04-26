@@ -6,6 +6,8 @@ class LoserScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gameState = Provider.of<GameState>(context, listen: false);
+    final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
         appBar: AppBar(
@@ -14,25 +16,26 @@ class LoserScreen extends StatelessWidget {
         ),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(screenWidth * 0.04),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Icon(
                   Icons.sentiment_very_dissatisfied,
                   color: Colors.red,
-                  size: 100.0,
+                  size: screenHeight * 0.1,
                 ),
-                const SizedBox(height: 50.0),
+                SizedBox(height: screenHeight * 0.05),
                 Text('Perdiste!',
-                    style:
-                        TextStyle(fontSize: 36, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 20.0),
+                    style: TextStyle(
+                        fontSize: screenHeight * 0.036,
+                        fontWeight: FontWeight.bold)),
+                SizedBox(height: screenHeight * 0.02),
                 Text(
                   'Mejor suerte la próxima vez',
-                  style: TextStyle(fontSize: 18),
+                  style: TextStyle(fontSize: screenHeight * 0.018),
                 ),
-                const SizedBox(height: 50.0),
+                SizedBox(height: screenHeight * 0.05),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,

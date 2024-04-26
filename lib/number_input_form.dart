@@ -20,13 +20,19 @@ class _NumberInputFormState extends State<NumberInputForm> {
   @override
   Widget build(BuildContext context) {
     final gameState = Provider.of<GameState>(context);
+    final screenWidth = MediaQuery.of(context).size.width;
+    final formWidth = screenWidth * 0.5;
+    final buttonPosition = screenWidth * 0.05;
+    final buttonBackgroundColor = Colors.red;
+    final buttonForegroundColor = Colors.white;
+
     return Stack(
       alignment: Alignment.center,
       children: <Widget>[
         Align(
           alignment: Alignment.center,
           child: SizedBox(
-            width: 200,
+            width: formWidth,
             child: TextFormField(
               controller: widget.controller,
               readOnly: true,
@@ -53,10 +59,10 @@ class _NumberInputFormState extends State<NumberInputForm> {
           ),
         ),
         Positioned(
-          right: 20.0,
+          right: buttonPosition,
           child: FloatingActionButton(
-            backgroundColor: Colors.red,
-            foregroundColor: Colors.white,
+            backgroundColor: buttonBackgroundColor,
+            foregroundColor: buttonForegroundColor,
             onPressed: () {
               if (widget.formKey.currentState!.validate()) {
                 widget.formKey.currentState!.save();

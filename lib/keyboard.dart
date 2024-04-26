@@ -53,6 +53,9 @@ class Keyboard extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         final buttonWidth = constraints.maxWidth / 3;
         final buttonHeight = constraints.maxHeight / 4;
+        final iconSize = buttonHeight * 0.3;
+        final textColor = Colors.black;
+
         return GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
@@ -63,7 +66,7 @@ class Keyboard extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             return Padding(
-              padding: const EdgeInsets.all(5),
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.01),
               child: SizedBox(
                 width: buttonWidth,
                 height: buttonHeight,
@@ -76,18 +79,18 @@ class Keyboard extends StatelessWidget {
                   child: index < 9
                       ? Text(
                           '${index + 1}',
-                          style: const TextStyle(color: Colors.black),
+                          style: TextStyle(color: textColor),
                         )
                       : index == 9
-                          ? const Icon(Icons.backspace,
-                              size: 30.0, color: Colors.black)
+                          ? Icon(Icons.backspace,
+                              size: iconSize, color: textColor)
                           : index == 10
-                              ? const Text(
+                              ? Text(
                                   '0',
-                                  style: TextStyle(color: Colors.black),
+                                  style: TextStyle(color: textColor),
                                 )
-                              : const Icon(Icons.check,
-                                  size: 30.0, color: Colors.black),
+                              : Icon(Icons.check,
+                                  size: iconSize, color: textColor),
                   onPressed: () => handleButtonPress(index, context),
                 ),
               ),

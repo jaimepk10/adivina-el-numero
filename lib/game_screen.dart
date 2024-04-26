@@ -56,9 +56,11 @@ class _GameScreenState extends State<GameScreen> {
                           formKey: _formKey,
                           controller: _controller,
                         ),
-                        const SizedBox(height: 20.0),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
                         UpperBoundDisplay(),
-                        const SizedBox(height: 20.0),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02),
                         LowerBoundDisplay(),
                       ],
                     ),
@@ -69,7 +71,7 @@ class _GameScreenState extends State<GameScreen> {
                 flex: 4, // 40% of space
                 child: Keyboard(controller: _controller, formKey: _formKey),
               ),
-              SizedBox(height: 40.0),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             ],
           );
         },
