@@ -86,7 +86,6 @@ class GameState extends ChangeNotifier {
 
   void setPlayerName(String name) {
     _playerName = name;
-    print(name);
     notifyListeners();
   }
 }
