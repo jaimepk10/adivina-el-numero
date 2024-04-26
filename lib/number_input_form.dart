@@ -69,6 +69,9 @@ class _NumberInputFormState extends State<NumberInputForm> {
                 String number = widget.controller.text;
                 setState(() {
                   int num = int.parse(number);
+                  if (num != gameState.numberToGuess) {
+                    gameState.decreaseTries();
+                  }
                   if (num == gameState.numberToGuess) {
                     Navigator.push(
                       context,

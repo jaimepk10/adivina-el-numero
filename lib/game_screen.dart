@@ -1,3 +1,4 @@
+import 'package:adivina_el_numero/tries_display.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,7 +35,7 @@ class _GameScreenState extends State<GameScreen> {
       body: Consumer<GameState>(
         builder: (context, gameState, child) {
           if (gameState.timeRemaining == 0) {
-            WidgetsBinding.instance!.addPostFrameCallback((_) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LoserScreen()),
@@ -52,6 +53,7 @@ class _GameScreenState extends State<GameScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         TimerDisplay(),
+                        TriesDisplay(), // Add the new widget
                         NumberInputForm(
                           formKey: _formKey,
                           controller: _controller,

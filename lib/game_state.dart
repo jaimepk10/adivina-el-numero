@@ -14,6 +14,7 @@ class GameState extends ChangeNotifier {
   int _timeRemaining;
   int _tries;
   String _playerName = '';
+  // TODO: agregar como propiedad un valor del enum
 
   GameState(
       {required int min,
@@ -35,6 +36,7 @@ class GameState extends ChangeNotifier {
   int? get upperBound => _upperBound;
   int? get lowerBound => _lowerBound;
   int get timeRemaining => _timeRemaining;
+  int get tries => _tries;
 
   void resetGame() {
     _numberToGuess = _min + Random().nextInt(_max - _min);
@@ -86,6 +88,11 @@ class GameState extends ChangeNotifier {
 
   void setPlayerName(String name) {
     _playerName = name;
+    notifyListeners();
+  }
+
+  void decreaseTries() {
+    _tries--;
     notifyListeners();
   }
 }

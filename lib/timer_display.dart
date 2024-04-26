@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'game_state.dart';
 
 class TimerDisplay extends StatelessWidget {
+  const TimerDisplay({super.key});
+
   @override
   Widget build(BuildContext context) {
     final gameState = Provider.of<GameState>(context);

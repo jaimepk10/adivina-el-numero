@@ -27,6 +27,9 @@ class Keyboard extends StatelessWidget {
         formKey.currentState!.save();
         String number = controller.text;
         int num = int.parse(number);
+        if (num != gameState.numberToGuess) {
+          gameState.decreaseTries();
+        }
         if (num == gameState.numberToGuess) {
           Navigator.push(
             context,
