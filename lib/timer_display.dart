@@ -11,17 +11,22 @@ class TimerDisplay extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final fontSize = screenHeight * 0.024;
-    final iconPosition = screenWidth * 0.15;
+    final iconDistance = 10.0;
 
-    return Stack(alignment: Alignment.center, children: <Widget>[
-      Align(
-        alignment: Alignment.center,
-        child: Text(
-          '${gameState.timeRemaining ~/ 60}:${(gameState.timeRemaining % 60).toString().padLeft(2, '0')}',
-          style: TextStyle(fontSize: fontSize),
-        ),
+    return SizedBox(
+      height: screenHeight * 0.1,
+      width: screenWidth * 0.8,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            '${gameState.timeRemaining ~/ 60}:${(gameState.timeRemaining % 60).toString().padLeft(2, '0')}',
+            style: TextStyle(fontSize: fontSize),
+          ),
+          SizedBox(width: iconDistance),
+          const Icon(Icons.access_time),
+        ],
       ),
-      Positioned(right: iconPosition, child: const Icon(Icons.access_time))
-    ]);
+    );
   }
 }
