@@ -5,7 +5,7 @@ import 'home_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
-      create: (context) => GameState(min: 0, max: 100, timeLimit: 1, tries: 10),
+      create: (context) => GameState(),
       child: MaterialApp(
         title: 'No es suerte, advina!',
         theme: ThemeData(

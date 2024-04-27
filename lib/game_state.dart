@@ -4,31 +4,19 @@ import 'dart:math';
 import 'package:adivina_el_numero/difficulty_enum.dart';
 
 class GameState extends ChangeNotifier {
-  int _min;
-  int _max;
-  int _numberToGuess = 0;
+  int _min = 0;
+  int _max = 0;
+  late int _numberToGuess;
   int? _upperBound;
   int? _lowerBound;
   late Timer _timer;
-  int _timeLimit;
-  int _timeRemaining;
-  int _tries;
+  late int _timeLimit;
+  late int _timeRemaining;
+  late int _tries;
   String _playerName = '';
-  // TODO: agregar como propiedad un valor del enum
+  late Dificultad _difficulty;
 
-  GameState(
-      {required int min,
-      required int max,
-      required int timeLimit,
-      required int tries})
-      : _min = min,
-        _max = max,
-        _numberToGuess = min + Random().nextInt(max - min),
-        _timeLimit = timeLimit,
-        _timeRemaining = timeLimit * 60,
-        _tries = tries {
-    startTimer();
-  }
+  GameState();
 
   int get min => _min;
   int get max => _max;
@@ -36,7 +24,7 @@ class GameState extends ChangeNotifier {
   int? get upperBound => _upperBound;
   int? get lowerBound => _lowerBound;
   int get timeRemaining => _timeRemaining;
-  int get tries => _tries;
+  int? get tries => _tries;
 
   void resetGame() {
     _numberToGuess = _min + Random().nextInt(_max - _min);
@@ -44,6 +32,21 @@ class GameState extends ChangeNotifier {
     _lowerBound = null;
     _timeRemaining = _timeLimit * 60;
     _timer.cancel();
+    _tries = _difficulty.intentos;
+    startTimer();
+    notifyListeners();
+  }
+
+  void setDifficulty(Dificultad difficulty) {
+    _difficulty = difficulty;
+    _min = difficulty.min;
+    _max = difficulty.max;
+    _numberToGuess = min + Random().nextInt(max - min);
+    _upperBound = null;
+    _lowerBound = null;
+    _timeLimit = difficulty.tiempo;
+    _timeRemaining = _timeLimit * 60;
+    _tries = difficulty.intentos;
     startTimer();
     notifyListeners();
   }
@@ -75,24 +78,14 @@ class GameState extends ChangeNotifier {
     super.dispose();
   }
 
-  void setDifficulty(Dificultad difficulty) {
-    resetGame();
-    _min = difficulty.min;
-    _max = difficulty.max;
-    _numberToGuess = min + Random().nextInt(max - min);
-    _timeLimit = difficulty.tiempo;
-    _timeRemaining = _timeLimit * 60;
-    _tries = difficulty.intentos;
-    notifyListeners();
-  }
-
   void setPlayerName(String name) {
     _playerName = name;
     notifyListeners();
   }
 
   void decreaseTries() {
-    _tries--;
+    _tries = _tries - 1;
+    notifyListeners();
     notifyListeners();
   }
 }
