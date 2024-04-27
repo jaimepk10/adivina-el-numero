@@ -88,4 +88,9 @@ class GameState extends ChangeNotifier {
     notifyListeners();
     notifyListeners();
   }
+
+  void stopTimer() {
+    _timer?.cancel();
+    notifyListeners();
+  }
 }

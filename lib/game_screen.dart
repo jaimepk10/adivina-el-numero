@@ -35,7 +35,7 @@ class _GameScreenState extends State<GameScreen> {
       body: Consumer<GameState>(
         builder: (context, gameState, child) {
           if (gameState.timeRemaining == 0 || gameState.tries == 0) {
-            gameState.resetGame();
+            gameState.stopTimer();
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.push(
                 context,

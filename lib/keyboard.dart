@@ -31,6 +31,7 @@ class Keyboard extends StatelessWidget {
           gameState.decreaseTries();
         }
         if (num == gameState.numberToGuess) {
+          gameState.stopTimer();
           Navigator.push(
             context,
             MaterialPageRoute(
