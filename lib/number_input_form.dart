@@ -50,7 +50,7 @@ class _NumberInputFormState extends State<NumberInputForm> {
                   return 'Por favor introduce un número';
                 }
                 int num = int.parse(value);
-                if (gameState.upperBound == null && num > gameState.max) {
+                if (num > gameState.max) {
                   return 'El número introducido está fuera del rango permitido';
                 }
                 return null;
