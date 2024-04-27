@@ -4,20 +4,23 @@ import 'dart:math';
 import 'package:adivina_el_numero/difficulty_enum.dart';
 
 class GameState extends ChangeNotifier {
+  // Attributes
   int _min = 0;
   int _max = 0;
   late int _numberToGuess;
   int? _upperBound;
   int? _lowerBound;
-  late Timer _timer;
+  Timer? _timer;
   late int _timeLimit;
   late int _timeRemaining;
   late int _tries;
   String _playerName = '';
   late Dificultad _difficulty;
 
+  // Constructor
   GameState();
 
+  // Getters
   int get min => _min;
   int get max => _max;
   int get numberToGuess => _numberToGuess;
@@ -25,13 +28,18 @@ class GameState extends ChangeNotifier {
   int? get lowerBound => _lowerBound;
   int get timeRemaining => _timeRemaining;
   int? get tries => _tries;
+  String get playerName => _playerName;
+  Dificultad get difficulty => _difficulty;
 
   void resetGame() {
+    _min = _difficulty.min;
+    _max = _difficulty.max;
     _numberToGuess = _min + Random().nextInt(_max - _min);
     _upperBound = null;
     _lowerBound = null;
+    _timeLimit = _difficulty.tiempo;
     _timeRemaining = _timeLimit * 60;
-    _timer.cancel();
+    _timer?.cancel();
     _tries = _difficulty.intentos;
     startTimer();
     notifyListeners();
@@ -39,16 +47,7 @@ class GameState extends ChangeNotifier {
 
   void setDifficulty(Dificultad difficulty) {
     _difficulty = difficulty;
-    _min = difficulty.min;
-    _max = difficulty.max;
-    _numberToGuess = min + Random().nextInt(max - min);
-    _upperBound = null;
-    _lowerBound = null;
-    _timeLimit = difficulty.tiempo;
-    _timeRemaining = _timeLimit * 60;
-    _tries = difficulty.intentos;
-    startTimer();
-    notifyListeners();
+    resetGame();
   }
 
   void setUpperBound(int value) {
@@ -62,7 +61,8 @@ class GameState extends ChangeNotifier {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_timeRemaining == 0) {
         timer.cancel();
       } else {
@@ -74,7 +74,7 @@ class GameState extends ChangeNotifier {
 
   @override
   void dispose() {
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
