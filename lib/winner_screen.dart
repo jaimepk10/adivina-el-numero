@@ -5,7 +5,7 @@ import 'game_state.dart';
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;
 
-  const WinnerScreen({Key? key, required this.guessedNumber}) : super(key: key);
+  const WinnerScreen({super.key, required this.guessedNumber});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,12 @@ class WinnerScreen extends StatelessWidget {
     final screenWidth = MediaQuery.of(context).size.width;
     final iconSize = screenHeight * 0.1;
     final spaceSize = screenHeight * 0.05;
-    final textColor = Colors.white;
-    final buttonColor = Colors.red;
+    const textColor = Colors.white;
+    const buttonColor = Colors.red;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Has acertado!'),
+        title: const Text('Has acertado!'),
         automaticallyImplyLeading: false,
       ),
       body: Padding(
@@ -33,7 +33,7 @@ class WinnerScreen extends StatelessWidget {
               children: <Widget>[
                 Icon(Icons.star_border, size: iconSize * 0.5),
                 Transform.translate(
-                  offset: Offset(0, 20),
+                  offset: const Offset(0, 20),
                   child: Icon(Icons.star_border, size: iconSize * 0.5),
                 ),
                 Icon(Icons.star_border, size: iconSize * 0.5),
@@ -52,7 +52,7 @@ class WinnerScreen extends StatelessWidget {
                 gameState.resetGame();
                 Navigator.pop(context);
               },
-              child: Text('Volver a jugar'),
+              child: const Text('Volver a jugar'),
             ),
           ],
         ),

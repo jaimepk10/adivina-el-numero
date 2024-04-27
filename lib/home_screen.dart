@@ -7,6 +7,8 @@ import 'game_state.dart';
 class HomeScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
 
+  HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,17 +16,17 @@ class HomeScreen extends StatelessWidget {
       return Center(
         child: Column(
           children: <Widget>[
-            Spacer(flex: 2),
+            const Spacer(flex: 2),
             Text(
               'No es suerte, adivina!',
-              style: Theme.of(context).textTheme.headline4,
+              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 50),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.75,
               child: TextField(
                 controller: _controller,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   contentPadding:
                       EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
                   border: UnderlineInputBorder(),
@@ -45,7 +47,8 @@ class HomeScreen extends StatelessWidget {
                   gameState.setPlayerName(_controller.text);
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => DifficultyScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const DifficultyScreen()),
                   );
                 },
                 child: const Text(
@@ -58,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(flex: 3),
+            const Spacer(flex: 3),
           ],
         ),
       );

@@ -11,7 +11,7 @@ class TimerDisplay extends StatelessWidget {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final fontSize = screenHeight * 0.024;
-    final iconDistance = 10.0;
+    const iconDistance = 10.0;
 
     return SizedBox(
       height: screenHeight * 0.1,
@@ -23,7 +23,7 @@ class TimerDisplay extends StatelessWidget {
             '${gameState.timeRemaining ~/ 60}:${(gameState.timeRemaining % 60).toString().padLeft(2, '0')}',
             style: TextStyle(fontSize: fontSize),
           ),
-          SizedBox(width: iconDistance),
+          const SizedBox(width: iconDistance),
           const Icon(Icons.access_time),
         ],
       ),

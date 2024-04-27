@@ -7,7 +7,8 @@ class NumberInputForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
   final TextEditingController controller;
 
-  NumberInputForm({
+  const NumberInputForm({
+    super.key,
     required this.formKey,
     required this.controller,
   });
@@ -23,8 +24,8 @@ class _NumberInputFormState extends State<NumberInputForm> {
     final screenWidth = MediaQuery.of(context).size.width;
     final formWidth = screenWidth * 0.5;
     final buttonPosition = screenWidth * 0.05;
-    final buttonBackgroundColor = Colors.red;
-    final buttonForegroundColor = Colors.white;
+    const buttonBackgroundColor = Colors.red;
+    const buttonForegroundColor = Colors.white;
 
     return Stack(
       alignment: Alignment.center,
@@ -40,7 +41,7 @@ class _NumberInputFormState extends State<NumberInputForm> {
                 FocusScope.of(context).requestFocus(FocusNode());
               },
               textAlign: TextAlign.center,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Introduce un número',
                 errorStyle: TextStyle(),
                 errorMaxLines: 2,

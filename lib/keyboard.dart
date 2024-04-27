@@ -58,7 +58,7 @@ class Keyboard extends StatelessWidget {
         final buttonWidth = constraints.maxWidth / 3;
         final buttonHeight = constraints.maxHeight / 4;
         final iconSize = buttonHeight * 0.3;
-        final textColor = Colors.black;
+        const textColor = Colors.black;
 
         return GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
@@ -83,13 +83,13 @@ class Keyboard extends StatelessWidget {
                   child: index < 9
                       ? Text(
                           '${index + 1}',
-                          style: TextStyle(color: textColor),
+                          style: const TextStyle(color: textColor),
                         )
                       : index == 9
                           ? Icon(Icons.backspace,
                               size: iconSize, color: textColor)
                           : index == 10
-                              ? Text(
+                              ? const Text(
                                   '0',
                                   style: TextStyle(color: textColor),
                                 )

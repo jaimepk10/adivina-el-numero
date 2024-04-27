@@ -53,8 +53,8 @@ class _GameScreenState extends State<GameScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        TimerDisplay(),
-                        TriesDisplay(), // Add the new widget
+                        const TimerDisplay(),
+                        const TriesDisplay(), // Add the new widget
                         NumberInputForm(
                           formKey: _formKey,
                           controller: _controller,

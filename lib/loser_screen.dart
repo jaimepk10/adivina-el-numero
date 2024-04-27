@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'game_state.dart';
 
 class LoserScreen extends StatelessWidget {
+  const LoserScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final gameState = Provider.of<GameState>(context, listen: false);
@@ -11,7 +13,7 @@ class LoserScreen extends StatelessWidget {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Perdiste'),
+          title: const Text('Perdiste'),
           automaticallyImplyLeading: false,
         ),
         body: Center(
@@ -45,7 +47,7 @@ class LoserScreen extends StatelessWidget {
                     gameState.resetGame();
                     Navigator.pop(context);
                   },
-                  child: Text('Volver a jugar'),
+                  child: const Text('Volver a jugar'),
                 ),
               ],
             ),
