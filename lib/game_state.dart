@@ -17,8 +17,16 @@ class GameState extends ChangeNotifier {
   String _playerName = '';
   late Dificultad _difficulty;
 
-  // Constructor
-  GameState();
+  // Private constructor
+  GameState._internal();
+
+  // Singleton instance
+  static final GameState _singleton = GameState._internal();
+
+  // Factory constructor
+  factory GameState() {
+    return _singleton;
+  }
 
   // Getters
   int get min => _min;
