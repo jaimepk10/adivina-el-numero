@@ -42,7 +42,7 @@ class GameState extends ChangeNotifier {
   void resetGame() {
     _min = _difficulty.min;
     _max = _difficulty.max;
-    _numberToGuess = _min + Random().nextInt(_max - _min);
+    _numberToGuess = _min + Random().nextInt(_max - _min + 1);
     _upperBound = null;
     _lowerBound = null;
     _timeLimit = _difficulty.tiempo;
