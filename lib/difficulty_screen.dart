@@ -13,8 +13,7 @@ class DifficultyScreen extends StatefulWidget {
 }
 
 class _DifficultyScreenState extends State<DifficultyScreen> {
-  Dificultad dificultadSeleccionada =
-      Dificultad.values[0]; // Dificultad por defecto
+  Dificultad dificultadSeleccionada = Dificultad.values[0];
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +50,7 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                           },
                           children: Dificultad.values.map((dificultad) {
                             return Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 20.0), // Aumenta el padding izquierdo
+                              padding: const EdgeInsets.only(left: 20.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -74,24 +72,20 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                                             title: Text(
                                               dificultad.nombre,
                                               style: TextStyle(
-                                                color: Colors
-                                                    .black, // Cambia el color del texto del título
-                                                fontWeight: FontWeight
-                                                    .bold, // Cambia el peso del texto del título
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                             content: Padding(
-                                              padding: const EdgeInsets.all(
-                                                  10.0), // Añade padding al contenido
+                                              padding:
+                                                  const EdgeInsets.all(10.0),
                                               child: Text(
                                                 'Rango: ${dificultad.min}-${dificultad.max}\n'
                                                 'Tiempo: ${dificultad.tiempo} minutos\n'
                                                 'Intentos: ${dificultad.intentos}',
                                                 style: TextStyle(
-                                                  color: Colors
-                                                      .black, // Cambia el color del texto del contenido
-                                                  fontSize:
-                                                      16, // Cambia el tamaño del texto del contenido
+                                                  color: Colors.black,
+                                                  fontSize: 16,
                                                 ),
                                               ),
                                             ),
@@ -103,8 +97,7 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                                                 },
                                               ),
                                             ],
-                                            backgroundColor: Colors.grey[
-                                                200], // Cambia el color de fondo del diálogo
+                                            backgroundColor: Colors.grey[200],
                                           );
                                         },
                                       );
