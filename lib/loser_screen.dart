@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_state.dart';
+import 'home_screen.dart';
 
 class LoserScreen extends StatelessWidget {
   const LoserScreen({super.key});
@@ -10,7 +11,8 @@ class LoserScreen extends StatelessWidget {
     final gameState = Provider.of<GameState>(context, listen: false);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
+    const textColor = Colors.white;
+    const buttonColor = Colors.red;
     return Scaffold(
         appBar: AppBar(
           title: const Text('Perdiste'),
@@ -48,6 +50,18 @@ class LoserScreen extends StatelessWidget {
                     Navigator.pop(context);
                   },
                   child: const Text('Volver a jugar'),
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: textColor,
+                    backgroundColor: buttonColor,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => HomeScreen()),
+                        (Route<dynamic> route) => false);
+                  },
+                  child: const Text('Volver al inicio'),
                 ),
               ],
             ),

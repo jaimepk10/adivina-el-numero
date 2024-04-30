@@ -12,6 +12,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Obtén el gameState
+    final gameState = Provider.of<GameState>(context, listen: false);
+
+    // Si el nombre en el gameState no es nulo, establece el valor del _controller a ese nombre
+    if (gameState.playerName != '') {
+      _controller.text = gameState.playerName;
+    }
+
     return Scaffold(
         body: Consumer<GameState>(builder: (context, gameState, child) {
       return Center(
@@ -28,7 +36,7 @@ class HomeScreen extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.75,
                 child: TextFormField(
-                  controller: _controller,
+                  controller: _controller, // Usa el _controller aquí
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),

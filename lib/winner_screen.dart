@@ -3,6 +3,7 @@ import 'package:adivina_el_numero/score_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_state.dart';
+import 'home_screen.dart';
 
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;
@@ -78,6 +79,18 @@ class WinnerScreen extends StatelessWidget {
                 );
               },
               child: const Text('Ver mejores puntuaciones'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: textColor,
+                backgroundColor: buttonColor,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    (Route<dynamic> route) => false);
+              },
+              child: const Text('Volver al inicio'),
             ),
           ],
         ),
