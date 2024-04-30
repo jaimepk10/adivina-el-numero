@@ -48,6 +48,7 @@ class _GameScreenState extends State<GameScreen> {
               MaterialPageRoute(
                   builder: (context) => WinnerScreen(
                         guessedNumber: gameState.numberToGuess,
+                        score: gameState.calculateScore(),
                       )),
             );
           } else if (num > gameState.numberToGuess &&

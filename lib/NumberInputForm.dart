@@ -69,6 +69,7 @@ class _NumberInputFormState extends State<NumberInputForm> {
                       MaterialPageRoute(
                           builder: (context) => WinnerScreen(
                                 guessedNumber: gameState.numberToGuess,
+                                score: gameState.calculateScore(),
                               )),
                     );
                   } else if (num > gameState.numberToGuess &&

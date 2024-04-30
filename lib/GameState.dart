@@ -13,6 +13,7 @@ class GameState extends ChangeNotifier {
   int _timeLimit;
   int _timeRemaining;
   int _tries;
+  int _score;
   String _playerName = '';
 
   GameState(
@@ -25,7 +26,8 @@ class GameState extends ChangeNotifier {
         _numberToGuess = min + Random().nextInt(max - min),
         _timeLimit = timeLimit,
         _timeRemaining = timeLimit * 60,
-        _tries = tries {
+        _tries = tries,
+        _score = 1000 {
     startTimer();
   }
 
@@ -35,7 +37,8 @@ class GameState extends ChangeNotifier {
   int? get upperBound => _upperBound;
   int? get lowerBound => _lowerBound;
   int get timeRemaining => _timeRemaining;
-
+  int get tries => _tries;
+  int get score => _score;
   void resetGame() {
     _numberToGuess = _min + Random().nextInt(_max - _min);
     _upperBound = null;
@@ -88,5 +91,15 @@ class GameState extends ChangeNotifier {
     _playerName = name;
     print(name);
     notifyListeners();
+  }
+
+  int calculateScore() {
+    // Points for time
+    int timeScore = timeRemaining;
+    // Points for attempts
+    int attemptsPenalty = tries * 10;
+    // Total score
+    int totalScore = timeScore - attemptsPenalty;
+    return totalScore;
   }
 }

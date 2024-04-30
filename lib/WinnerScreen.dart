@@ -5,8 +5,10 @@ import 'difficulty_screen.dart';
 
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;
-
-  const WinnerScreen({Key? key, required this.guessedNumber}) : super(key: key);
+  final int score;
+  const WinnerScreen(
+      {Key? key, required this.guessedNumber, required this.score})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,8 @@ class WinnerScreen extends StatelessWidget {
             ),
             const SizedBox(height: 50.0),
             Text('Has adivinado el número $guessedNumber!',
+                style: TextStyle(fontSize: 24.0)),
+            Text('Puntuación: $guessedNumber!',
                 style: TextStyle(fontSize: 24.0)),
             const SizedBox(height: 50.0),
             ElevatedButton(
