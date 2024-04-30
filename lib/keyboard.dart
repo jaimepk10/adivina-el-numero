@@ -32,11 +32,13 @@ class Keyboard extends StatelessWidget {
         }
         if (num == gameState.numberToGuess) {
           gameState.stopTimer();
+          gameState.calculateScore();
           Navigator.push(
             context,
             MaterialPageRoute(
                 builder: (context) => WinnerScreen(
                       guessedNumber: gameState.numberToGuess,
+                      totalScore: gameState.score,
                     )),
           );
         } else if (num > gameState.numberToGuess &&

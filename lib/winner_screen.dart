@@ -1,11 +1,14 @@
+import 'package:adivina_el_numero/score_dialog.dart';
+import 'package:adivina_el_numero/score_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_state.dart';
 
 class WinnerScreen extends StatelessWidget {
   final int guessedNumber;
-
-  const WinnerScreen({super.key, required this.guessedNumber});
+  final int totalScore;
+  const WinnerScreen(
+      {super.key, required this.guessedNumber, required this.totalScore});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class WinnerScreen extends StatelessWidget {
     final spaceSize = screenHeight * 0.05;
     const textColor = Colors.white;
     const buttonColor = Colors.red;
-
+    ScoreManager.newScore(gameState.playerName, totalScore);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Has acertado!'),
@@ -43,6 +46,9 @@ class WinnerScreen extends StatelessWidget {
             Text('Has adivinado el número $guessedNumber!',
                 style: TextStyle(fontSize: screenHeight * 0.024)),
             SizedBox(height: spaceSize),
+            Text('Puntuación: $totalScore',
+                style: TextStyle(fontSize: screenHeight * 0.024)),
+            SizedBox(height: spaceSize),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 foregroundColor: textColor,
@@ -53,6 +59,25 @@ class WinnerScreen extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: const Text('Volver a jugar'),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: textColor,
+                backgroundColor: buttonColor,
+              ),
+              onPressed: () {
+                var scores = ScoreManager.loadBestScores();
+                //print all the scores 1 by 1 on console
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return ScoresDialog(
+                      scoresFuture: scores,
+                    );
+                  },
+                );
+              },
+              child: const Text('Ver mejores puntuaciones'),
             ),
           ],
         ),

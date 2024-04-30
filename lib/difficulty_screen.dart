@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:adivina_el_numero/difficulty_enum.dart';
 import 'package:adivina_el_numero/game_screen.dart';
@@ -6,14 +5,14 @@ import 'package:provider/provider.dart';
 import 'game_state.dart';
 
 class DifficultyScreen extends StatefulWidget {
-  const DifficultyScreen({super.key});
+  const DifficultyScreen({Key? key});
 
   @override
   _DifficultyScreenState createState() => _DifficultyScreenState();
 }
 
 class _DifficultyScreenState extends State<DifficultyScreen> {
-  Dificultad dificultadSeleccionada = Dificultad.values[0];
+  Dificultad? dificultadSeleccionada;
 
   @override
   Widget build(BuildContext context) {
@@ -39,75 +38,79 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                   ),
                   Expanded(
                     child: Center(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: CupertinoPicker(
-                          itemExtent: 60,
-                          onSelectedItemChanged: (index) {
-                            setState(() {
-                              dificultadSeleccionada = Dificultad.values[index];
-                            });
-                          },
-                          children: Dificultad.values.map((dificultad) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 20.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    dificultad.nombre,
-                                    style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: Icon(Icons.info, color: Colors.blue),
-                                    onPressed: () {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context) {
-                                          return AlertDialog(
-                                            title: Text(
-                                              dificultad.nombre,
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            content: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(10.0),
-                                              child: Text(
-                                                'Rango: ${dificultad.min}-${dificultad.max}\n'
-                                                'Tiempo: ${dificultad.tiempo} minutos\n'
-                                                'Intentos: ${dificultad.intentos}',
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text('OK'),
-                                                onPressed: () {
-                                                  Navigator.of(context).pop();
-                                                },
-                                              ),
-                                            ],
-                                            backgroundColor: Colors.grey[200],
-                                          );
-                                        },
-                                      );
-                                    },
-                                  ),
-                                ],
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: Dificultad.values.length,
+                        itemBuilder: (context, index) {
+                          final dificultad = Dificultad.values[index];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 90.0, vertical: 8.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(10),
                               ),
-                            );
-                          }).toList(),
-                        ),
+                              child: ListTile(
+                                title: Text(
+                                  dificultad.nombre,
+                                  style: const TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                trailing: IconButton(
+                                  icon: const Icon(Icons.info,
+                                      color: Colors.blue),
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          title: Text(
+                                            dificultad.nombre,
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          content: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Text(
+                                              'Rango: ${dificultad.min}-${dificultad.max}\n'
+                                              'Tiempo: ${dificultad.tiempo} minutos\n'
+                                              'Intentos: ${dificultad.intentos}',
+                                              style: const TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: const Text('OK'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                            ),
+                                          ],
+                                          backgroundColor: Colors.grey[200],
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                                onTap: () {
+                                  setState(() {
+                                    dificultadSeleccionada = dificultad;
+                                  });
+                                },
+                                selected: dificultad == dificultadSeleccionada,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
@@ -116,15 +119,17 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                       foregroundColor: textColor,
                       backgroundColor: buttonColor,
                     ),
-                    onPressed: () {
-                      gameState.setDifficulty(dificultadSeleccionada);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const GameScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: dificultadSeleccionada != null
+                        ? () {
+                            gameState.setDifficulty(dificultadSeleccionada!);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const GameScreen(),
+                              ),
+                            );
+                          }
+                        : null,
                     child: const Text('Comenzar'),
                   ),
                 ],

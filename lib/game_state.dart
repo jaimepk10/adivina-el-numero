@@ -14,6 +14,8 @@ class GameState extends ChangeNotifier {
   late int _timeLimit;
   late int _timeRemaining;
   late int _tries;
+  late int _score;
+  late int _scoreMultiplier;
   String _playerName = '';
   late Dificultad _difficulty;
 
@@ -38,6 +40,7 @@ class GameState extends ChangeNotifier {
   int? get tries => _tries;
   String get playerName => _playerName;
   Dificultad get difficulty => _difficulty;
+  int get score => _score;
 
   void resetGame() {
     _min = _difficulty.min;
@@ -49,6 +52,8 @@ class GameState extends ChangeNotifier {
     _timeRemaining = _timeLimit * 60;
     _timer?.cancel();
     _tries = _difficulty.intentos;
+    _score = 0;
+    _scoreMultiplier = _difficulty.multiplicadorScore;
     startTimer();
     notifyListeners();
   }
@@ -99,6 +104,13 @@ class GameState extends ChangeNotifier {
 
   void stopTimer() {
     _timer?.cancel();
+    notifyListeners();
+  }
+
+  void calculateScore() {
+    _score = _score +
+        (_timeRemaining * _scoreMultiplier) +
+        (_difficulty.intentos - _tries) * _scoreMultiplier;
     notifyListeners();
   }
 }

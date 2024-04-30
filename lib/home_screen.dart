@@ -6,6 +6,7 @@ import 'game_state.dart';
 
 class HomeScreen extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   HomeScreen({super.key});
 
@@ -22,17 +23,28 @@ class HomeScreen extends StatelessWidget {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const SizedBox(height: 50),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.75,
-              child: TextField(
-                controller: _controller,
-                decoration: const InputDecoration(
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                  border: UnderlineInputBorder(),
-                  filled: true,
-                  fillColor: Colors.white,
-                  labelText: 'Introduce tu nombre',
+            Form(
+              key: _formKey,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.75,
+                child: TextFormField(
+                  controller: _controller,
+                  decoration: InputDecoration(
+                    contentPadding:
+                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                    border: UnderlineInputBorder(),
+                    filled: true,
+                    fillColor: Colors.white,
+                    labelText: 'Introduce tu nombre',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Por favor, introduce tu nombre';
+                    } else if (value.length > 15) {
+                      return 'El nombre no puede tener más de 15 letras';
+                    }
+                    return null;
+                  },
                 ),
               ),
             ),
@@ -44,12 +56,14 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: Colors.red,
                 ),
                 onPressed: () {
-                  gameState.setPlayerName(_controller.text);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DifficultyScreen()),
-                  );
+                  if (_formKey.currentState!.validate()) {
+                    gameState.setPlayerName(_controller.text);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DifficultyScreen()),
+                    );
+                  }
                 },
                 child: const Text(
                   'Jugar!',
