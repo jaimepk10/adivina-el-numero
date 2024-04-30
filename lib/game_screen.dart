@@ -1,3 +1,4 @@
+import 'package:adivina_el_numero/pause_dialog.dart';
 import 'package:adivina_el_numero/tries_display.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,21 @@ class _GameScreenState extends State<GameScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading:
+            false, // This removes the default back button
+        leading: IconButton(
+          icon: Icon(Icons.pause), // This is your pause button
+          onPressed: () {
+            var gameState = Provider.of<GameState>(context, listen: false);
+            gameState.stopTimer();
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return PauseDialog();
+              },
+            ).then((_) => gameState.startTimer());
+          },
+        ),
         title: const Text('Adivina el número'),
       ),
       body: Consumer<GameState>(

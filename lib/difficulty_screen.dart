@@ -1,3 +1,4 @@
+import 'package:adivina_el_numero/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:adivina_el_numero/difficulty_enum.dart';
 import 'package:adivina_el_numero/game_screen.dart';
@@ -20,6 +21,17 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
     const buttonColor = Colors.red;
 
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => HomeScreen()),
+                (Route<dynamic> route) => false);
+          },
+        ),
+      ),
       body: Consumer<GameState>(
         builder: (context, gameState, child) {
           return SafeArea(
