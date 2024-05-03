@@ -11,11 +11,12 @@ class LoserScreen extends StatelessWidget {
     final gameState = Provider.of<GameState>(context, listen: false);
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
+    final fontSize = screenHeight * 0.02;
     const textColor = Colors.white;
     const buttonColor = Colors.red;
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Perdiste'),
+          title: Text('Perdiste', style: TextStyle(fontSize: fontSize)),
           automaticallyImplyLeading: false,
         ),
         body: Center(
@@ -32,12 +33,11 @@ class LoserScreen extends StatelessWidget {
                 SizedBox(height: screenHeight * 0.05),
                 Text('Perdiste!',
                     style: TextStyle(
-                        fontSize: screenHeight * 0.036,
-                        fontWeight: FontWeight.bold)),
+                        fontSize: fontSize, fontWeight: FontWeight.bold)),
                 SizedBox(height: screenHeight * 0.02),
                 Text(
                   'Mejor suerte la próxima vez',
-                  style: TextStyle(fontSize: screenHeight * 0.018),
+                  style: TextStyle(fontSize: fontSize),
                 ),
                 SizedBox(height: screenHeight * 0.05),
                 ElevatedButton(
@@ -49,7 +49,8 @@ class LoserScreen extends StatelessWidget {
                     gameState.resetGame();
                     Navigator.pop(context);
                   },
-                  child: const Text('Volver a jugar'),
+                  child: Text('Volver a jugar',
+                      style: TextStyle(fontSize: fontSize)),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -61,7 +62,8 @@ class LoserScreen extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => HomeScreen()),
                         (Route<dynamic> route) => false);
                   },
-                  child: const Text('Volver al inicio'),
+                  child: Text('Volver al inicio',
+                      style: TextStyle(fontSize: fontSize)),
                 ),
               ],
             ),

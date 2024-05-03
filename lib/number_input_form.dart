@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'game_state.dart';
-import 'winner_screen.dart';
 
 class NumberInputForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
@@ -22,6 +21,7 @@ class _NumberInputFormState extends State<NumberInputForm> {
   Widget build(BuildContext context) {
     final gameState = Provider.of<GameState>(context);
     final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final formWidth = screenWidth * 0.5;
 
     return Align(
@@ -35,9 +35,10 @@ class _NumberInputFormState extends State<NumberInputForm> {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           textAlign: TextAlign.center,
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             labelText: 'Introduce un número',
-            errorStyle: TextStyle(),
+            labelStyle: TextStyle(fontSize: screenHeight * 0.02),
+            errorStyle: TextStyle(fontSize: screenHeight * 0.02),
             errorMaxLines: 2,
           ),
           validator: (value) {

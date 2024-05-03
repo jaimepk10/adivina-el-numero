@@ -29,12 +29,13 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading:
-            false, // This removes the default back button
+        automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.pause), // This is your pause button
+          icon: Icon(Icons.pause),
           onPressed: () {
             var gameState = Provider.of<GameState>(context, listen: false);
             gameState.stopTimer();
@@ -70,16 +71,14 @@ class _GameScreenState extends State<GameScreen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         const TimerDisplay(),
-                        const TriesDisplay(), // Add the new widget
+                        const TriesDisplay(),
                         NumberInputForm(
                           formKey: _formKey,
                           controller: _controller,
                         ),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: screenHeight * 0.02),
                         UpperBoundDisplay(),
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.02),
+                        SizedBox(height: screenHeight * 0.02),
                         LowerBoundDisplay(),
                       ],
                     ),

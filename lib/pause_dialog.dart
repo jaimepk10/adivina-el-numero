@@ -8,6 +8,9 @@ class PauseDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final fontSize = screenHeight * 0.02;
+
     return Dialog(
       elevation: 10,
       backgroundColor: Colors.transparent,
@@ -24,14 +27,13 @@ class PauseDialog extends StatelessWidget {
             Text(
               'Pausa',
               style: TextStyle(
-                fontSize: 24,
+                fontSize: fontSize,
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment
-                  .spaceEvenly, // This will space your buttons evenly
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Column(
                   children: <Widget>[
@@ -43,13 +45,15 @@ class PauseDialog extends StatelessWidget {
                             builder: (context) {
                               return AlertDialog(
                                 title: Text(
-                                    '¿Estás seguro de que quieres terminar el juego?'),
+                                    '¿Estás seguro de que quieres terminar el juego?',
+                                    style: TextStyle(fontSize: fontSize)),
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text('Cancelar'),
+                                    child: Text('Cancelar',
+                                        style: TextStyle(fontSize: fontSize)),
                                   ),
                                   TextButton(
                                     onPressed: () {
@@ -59,14 +63,15 @@ class PauseDialog extends StatelessWidget {
                                                   DifficultyScreen()),
                                           (Route<dynamic> route) => false);
                                     },
-                                    child: Text('Sí'),
+                                    child: Text('Sí',
+                                        style: TextStyle(fontSize: fontSize)),
                                   ),
                                 ],
                               );
                             });
                       },
                     ),
-                    Text('Terminar'), // Text below the button
+                    Text('Terminar', style: TextStyle(fontSize: fontSize)),
                   ],
                 ),
                 Column(
@@ -77,7 +82,7 @@ class PauseDialog extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                     ),
-                    Text('Resumir'), // Text below the button
+                    Text('Resumir', style: TextStyle(fontSize: fontSize)),
                   ],
                 ),
                 Column(
@@ -86,7 +91,6 @@ class PauseDialog extends StatelessWidget {
                       icon: Icon(Icons.scoreboard_outlined),
                       onPressed: () {
                         var scores = ScoreManager.loadBestScores();
-                        //print all the scores 1 by 1 on console
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
@@ -97,7 +101,7 @@ class PauseDialog extends StatelessWidget {
                         );
                       },
                     ),
-                    Text('Puntuaciones'), // Text below the button
+                    Text('Puntuaciones', style: TextStyle(fontSize: fontSize)),
                   ],
                 ),
               ],

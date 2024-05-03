@@ -12,10 +12,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Obtén el gameState
     final gameState = Provider.of<GameState>(context, listen: false);
+    final screenHeight = MediaQuery.of(context).size.height;
 
-    // Si el nombre en el gameState no es nulo, establece el valor del _controller a ese nombre
     if (gameState.playerName != '') {
       _controller.text = gameState.playerName;
     }
@@ -28,7 +27,7 @@ class HomeScreen extends StatelessWidget {
             const Spacer(flex: 2),
             Text(
               'No es suerte, adivina!',
-              style: Theme.of(context).textTheme.headlineMedium,
+              style: TextStyle(fontSize: screenHeight * 0.03),
             ),
             const SizedBox(height: 50),
             Form(
@@ -36,7 +35,7 @@ class HomeScreen extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.75,
                 child: TextFormField(
-                  controller: _controller, // Usa el _controller aquí
+                  controller: _controller,
                   decoration: InputDecoration(
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
@@ -44,6 +43,7 @@ class HomeScreen extends StatelessWidget {
                     filled: true,
                     fillColor: Colors.white,
                     labelText: 'Introduce tu nombre',
+                    labelStyle: TextStyle(fontSize: screenHeight * 0.02),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
@@ -73,11 +73,11 @@ class HomeScreen extends StatelessWidget {
                     );
                   }
                 },
-                child: const Text(
+                child: Text(
                   'Jugar!',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 18,
+                    fontSize: screenHeight * 0.02,
                     color: Colors.white,
                   ),
                 ),

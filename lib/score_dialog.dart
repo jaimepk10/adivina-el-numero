@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ScoresDialog extends StatelessWidget {
   final Future<List<Map<String, dynamic>>> scoresFuture;
@@ -9,6 +7,9 @@ class ScoresDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final fontSize = screenHeight * 0.02;
+
     return FutureBuilder<List<Map<String, dynamic>>>(
       future: scoresFuture,
       builder: (context, snapshot) {
@@ -38,7 +39,7 @@ class ScoresDialog extends StatelessWidget {
                   Text(
                     'Puntuaciones',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: fontSize,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -49,10 +50,10 @@ class ScoresDialog extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final score = scores[index];
                         return ListTile(
-                          leading: Text(
-                              '${index + 1}'), // Indicador numérico de la posición
-                          title: Text(
-                              '${score['name']} - ${score['score']}'), // Nombre y puntuación en la misma línea
+                          leading: Text('${index + 1}',
+                              style: TextStyle(fontSize: fontSize)),
+                          title: Text('${score['name']} - ${score['score']}',
+                              style: TextStyle(fontSize: fontSize)),
                         );
                       },
                     ),
@@ -61,7 +62,7 @@ class ScoresDialog extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text('Cerrar'),
+                    child: Text('Cerrar', style: TextStyle(fontSize: fontSize)),
                   ),
                 ],
               ),

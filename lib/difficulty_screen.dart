@@ -19,6 +19,8 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
   Widget build(BuildContext context) {
     const textColor = Colors.white;
     const buttonColor = Colors.red;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,12 +40,12 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
             child: Center(
               child: Column(
                 children: <Widget>[
-                  const Padding(
-                    padding: EdgeInsets.only(top: 40.0),
+                  Padding(
+                    padding: EdgeInsets.only(top: screenHeight * 0.05),
                     child: Text(
                       'Selecciona la dificultad',
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: screenHeight * 0.03,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -57,8 +59,9 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                         itemBuilder: (context, index) {
                           final dificultad = Dificultad.values[index];
                           return Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 90.0, vertical: 8.0),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: screenWidth * 0.2,
+                                vertical: screenHeight * 0.01),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: Colors.grey[200],
@@ -67,8 +70,8 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                               child: ListTile(
                                 title: Text(
                                   dificultad.nombre,
-                                  style: const TextStyle(
-                                    fontSize: 22,
+                                  style: TextStyle(
+                                    fontSize: screenHeight * 0.03,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),

@@ -55,6 +55,9 @@ class Keyboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
+    final fontSize = screenHeight * 0.02;
+
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final buttonWidth = constraints.maxWidth / 3;
@@ -85,15 +88,17 @@ class Keyboard extends StatelessWidget {
                   child: index < 9
                       ? Text(
                           '${index + 1}',
-                          style: const TextStyle(color: textColor),
+                          style:
+                              TextStyle(color: textColor, fontSize: fontSize),
                         )
                       : index == 9
                           ? Icon(Icons.backspace,
                               size: iconSize, color: textColor)
                           : index == 10
-                              ? const Text(
+                              ? Text(
                                   '0',
-                                  style: TextStyle(color: textColor),
+                                  style: TextStyle(
+                                      color: textColor, fontSize: fontSize),
                                 )
                               : Icon(Icons.check,
                                   size: iconSize, color: textColor),
