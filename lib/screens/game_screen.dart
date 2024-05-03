@@ -1,15 +1,14 @@
-import 'package:adivina_el_numero/pause_dialog.dart';
-import 'package:adivina_el_numero/tries_display.dart';
+import 'package:adivina_el_numero/screens/pause_dialog.dart';
+import 'package:adivina_el_numero/components/tries_display.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'game_state.dart';
-import 'keyboard.dart';
+import '../model/game_state.dart';
+import '../components/keyboard.dart';
 import 'loser_screen.dart';
-import 'lower_bound_display.dart';
-import 'number_input_form.dart';
-import 'timer_display.dart';
-import 'upper_bound_display.dart';
+import '../components/lower_bound_display.dart';
+import '../components/number_input_form.dart';
+import '../components/timer_display.dart';
+import '../components/upper_bound_display.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});

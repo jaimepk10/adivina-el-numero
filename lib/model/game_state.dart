@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'dart:math';
-import 'package:adivina_el_numero/difficulty_enum.dart';
+import 'package:adivina_el_numero/model/difficulty_enum.dart';
 
 class GameState extends ChangeNotifier {
   // Attributes

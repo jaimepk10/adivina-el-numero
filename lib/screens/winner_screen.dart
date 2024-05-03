@@ -1,8 +1,8 @@
-import 'package:adivina_el_numero/score_dialog.dart';
-import 'package:adivina_el_numero/score_manager.dart';
+import 'package:adivina_el_numero/screens/score_dialog.dart';
+import 'package:adivina_el_numero/model/score_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'game_state.dart';
+import '../model/game_state.dart';
 import 'home_screen.dart';
 
 class WinnerScreen extends StatelessWidget {
@@ -59,7 +59,21 @@ class WinnerScreen extends StatelessWidget {
                 gameState.resetGame();
                 Navigator.pop(context);
               },
-              child: const Text('Volver a jugar'),
+              child:
+                  const Text('Volver a Jugar', style: TextStyle(fontSize: 18)),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: textColor,
+                backgroundColor: buttonColor,
+              ),
+              onPressed: () {
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) => HomeScreen()),
+                    (Route<dynamic> route) => false);
+              },
+              child:
+                  const Text('Volver a Inicio', style: TextStyle(fontSize: 18)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -78,19 +92,8 @@ class WinnerScreen extends StatelessWidget {
                   },
                 );
               },
-              child: const Text('Ver mejores puntuaciones'),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                foregroundColor: textColor,
-                backgroundColor: buttonColor,
-              ),
-              onPressed: () {
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => HomeScreen()),
-                    (Route<dynamic> route) => false);
-              },
-              child: const Text('Volver al inicio'),
+              child: const Text('Ver mejores puntuaciones',
+                  style: TextStyle(fontSize: 18)),
             ),
           ],
         ),

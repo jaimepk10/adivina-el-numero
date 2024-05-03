@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'game_state.dart';
+import '../model/game_state.dart';
 
-class UpperBoundDisplay extends StatelessWidget {
-  const UpperBoundDisplay({super.key});
+class LowerBoundDisplay extends StatelessWidget {
+  const LowerBoundDisplay({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +13,14 @@ class UpperBoundDisplay extends StatelessWidget {
     final iconSize = screenHeight * 0.03;
     const iconColor = Colors.red;
 
-    return gameState.upperBound != null
+    return gameState.lowerBound != null
         ? Center(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('${gameState.upperBound}',
+                Text('${gameState.lowerBound}',
                     style: TextStyle(fontSize: fontSize)),
-                Icon(Icons.arrow_downward, size: iconSize, color: iconColor),
+                Icon(Icons.arrow_upward, size: iconSize, color: iconColor),
               ],
             ),
           )

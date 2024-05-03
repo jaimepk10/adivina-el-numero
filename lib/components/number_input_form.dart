@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'game_state.dart';
+import '../model/game_state.dart';
 
 class NumberInputForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;

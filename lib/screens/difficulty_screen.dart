@@ -1,9 +1,9 @@
-import 'package:adivina_el_numero/home_screen.dart';
+import 'package:adivina_el_numero/screens/home_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:adivina_el_numero/difficulty_enum.dart';
-import 'package:adivina_el_numero/game_screen.dart';
+import 'package:adivina_el_numero/model/difficulty_enum.dart';
+import 'package:adivina_el_numero/screens/game_screen.dart';
 import 'package:provider/provider.dart';
-import 'game_state.dart';
+import '../model/game_state.dart';
 
 class DifficultyScreen extends StatefulWidget {
   const DifficultyScreen({super.key});
@@ -145,7 +145,8 @@ class _DifficultyScreenState extends State<DifficultyScreen> {
                             );
                           }
                         : null,
-                    child: const Text('Comenzar'),
+                    child:
+                        const Text('Comenzar', style: TextStyle(fontSize: 18)),
                   ),
                 ],
               ),

@@ -1,6 +1,6 @@
-import 'package:adivina_el_numero/difficulty_screen.dart';
-import 'package:adivina_el_numero/score_dialog.dart';
-import 'package:adivina_el_numero/score_manager.dart';
+import 'package:adivina_el_numero/screens/difficulty_screen.dart';
+import 'package:adivina_el_numero/screens/score_dialog.dart';
+import 'package:adivina_el_numero/model/score_manager.dart';
 import 'package:flutter/material.dart';
 
 class PauseDialog extends StatelessWidget {
@@ -82,7 +82,7 @@ class PauseDialog extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                     ),
-                    Text('Resumir', style: TextStyle(fontSize: fontSize)),
+                    Text('Continuar', style: TextStyle(fontSize: fontSize)),
                   ],
                 ),
                 Column(
@@ -101,7 +101,7 @@ class PauseDialog extends StatelessWidget {
                         );
                       },
                     ),
-                    Text('Puntuaciones', style: TextStyle(fontSize: fontSize)),
+                    Text('Scores', style: TextStyle(fontSize: fontSize)),
                   ],
                 ),
               ],

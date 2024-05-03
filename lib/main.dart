@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'game_state.dart';
-import 'home_screen.dart';
+import 'model/game_state.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
