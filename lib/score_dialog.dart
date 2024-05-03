@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ScoresDialog extends StatelessWidget {
   final Future<List<Map<String, dynamic>>> scoresFuture;
 
-  ScoresDialog({required this.scoresFuture});
+  const ScoresDialog({super.key, required this.scoresFuture});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class ScoresDialog extends StatelessWidget {
       future: scoresFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasError) {
@@ -43,7 +43,7 @@ class ScoresDialog extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Expanded(
                     child: ListView.builder(
                       itemCount: scores.length,

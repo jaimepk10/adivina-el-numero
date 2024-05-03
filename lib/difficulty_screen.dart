@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'game_state.dart';
 
 class DifficultyScreen extends StatefulWidget {
-  const DifficultyScreen({Key? key});
+  const DifficultyScreen({super.key});
 
   @override
   _DifficultyScreenState createState() => _DifficultyScreenState();

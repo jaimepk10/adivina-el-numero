@@ -4,7 +4,7 @@ import 'package:adivina_el_numero/score_manager.dart';
 import 'package:flutter/material.dart';
 
 class PauseDialog extends StatelessWidget {
-  const PauseDialog({Key? key}) : super(key: key);
+  const PauseDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +31,14 @@ class PauseDialog extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Column(
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.stop_circle_outlined),
+                      icon: const Icon(Icons.stop_circle_outlined),
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -60,7 +60,7 @@ class PauseDialog extends StatelessWidget {
                                       Navigator.of(context).pushAndRemoveUntil(
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  DifficultyScreen()),
+                                                  const DifficultyScreen()),
                                           (Route<dynamic> route) => false);
                                     },
                                     child: Text('Sí',
@@ -77,7 +77,7 @@ class PauseDialog extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.play_circle_outline_outlined),
+                      icon: const Icon(Icons.play_circle_outline_outlined),
                       onPressed: () {
                         Navigator.of(context).pop();
                       },
@@ -88,7 +88,7 @@ class PauseDialog extends StatelessWidget {
                 Column(
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.scoreboard_outlined),
+                      icon: const Icon(Icons.scoreboard_outlined),
                       onPressed: () {
                         var scores = ScoreManager.loadBestScores();
                         showDialog(

@@ -35,14 +35,14 @@ class _GameScreenState extends State<GameScreen> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         leading: IconButton(
-          icon: Icon(Icons.pause),
+          icon: const Icon(Icons.pause),
           onPressed: () {
             var gameState = Provider.of<GameState>(context, listen: false);
             gameState.stopTimer();
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return PauseDialog();
+                return const PauseDialog();
               },
             ).then((_) => gameState.startTimer());
           },
@@ -56,7 +56,7 @@ class _GameScreenState extends State<GameScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LoserScreen()),
+                MaterialPageRoute(builder: (context) => const LoserScreen()),
               );
             });
           }
@@ -77,9 +77,9 @@ class _GameScreenState extends State<GameScreen> {
                           controller: _controller,
                         ),
                         SizedBox(height: screenHeight * 0.02),
-                        UpperBoundDisplay(),
+                        const UpperBoundDisplay(),
                         SizedBox(height: screenHeight * 0.02),
-                        LowerBoundDisplay(),
+                        const LowerBoundDisplay(),
                       ],
                     ),
                   ),

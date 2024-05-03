@@ -37,9 +37,9 @@ class HomeScreen extends StatelessWidget {
                 child: TextFormField(
                   controller: _controller,
                   decoration: InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                    border: UnderlineInputBorder(),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 10.0, horizontal: 20.0),
+                    border: const UnderlineInputBorder(),
                     filled: true,
                     fillColor: Colors.white,
                     labelText: 'Introduce tu nombre',
