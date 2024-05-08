@@ -22,6 +22,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   final _formKey = GlobalKey<FormState>();
   final _controller = TextEditingController();
+
   @override
   void initState() {
     super.initState();
